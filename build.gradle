@@ -1,0 +1,40 @@
+apply plugin: 'java'
+apply plugin: 'kotlin'
+apply plugin: 'maven'
+
+sourceCompatibility = 1.6
+
+dependencies {
+    compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlinVersion"
+    testCompile "junit:junit:4.12"
+
+    compile 'com.squareup.retrofit2:retrofit:2.1.0'
+    compile 'com.squareup.retrofit2:converter-gson:2.1.0'
+    compile 'com.squareup.okhttp3:logging-interceptor:3.3.1'
+    compile "com.google.code.gson:gson:2.7"
+    compile "io.vertx:vertx-core:3.4.1"
+    compile "org.reflections:reflections:0.9.11"
+}
+
+task sourcesJar(type: Jar, dependsOn: classes) {
+    classifier = 'sources'
+    from sourceSets.main.allSource
+}
+
+artifacts {
+    archives sourcesJar
+}
+
+install {
+    repositories.mavenInstaller {
+        pom.project {
+            licenses {
+                license {
+                    name 'The Apache Software License, Version 2.0'
+                    url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+                    distribution 'repo'
+                }
+            }
+        }
+    }
+}
