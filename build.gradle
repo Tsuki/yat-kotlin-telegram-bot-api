@@ -8,13 +8,22 @@ dependencies {
     compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlinVersion"
     testCompile "junit:junit:4.12"
 
-//    compile 'com.squareup.retrofit2:retrofit:2.1.0'
     compile 'com.squareup.retrofit2:converter-gson:2.2.0'
     compile 'com.squareup.okhttp3:logging-interceptor:3.6.0'
     compile "com.google.code.gson:gson:2.7"
     compile 'com.julienviet:retrofit-vertx:1.0.1'
     compile "io.vertx:vertx-core:3.4.1"
     compile "org.reflections:reflections:0.9.11"
+    compile 'io.github.microutils:kotlin-logging:1.4.4'
+    // https://mvnrepository.com/artifact/org.slf4j/slf4j-simple
+    compile group: 'org.slf4j', name: 'slf4j-simple', version: '1.7.25'
+    // https://mvnrepository.com/artifact/org.apache.commons/commons-lang3
+    compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.5'
+    // https://mvnrepository.com/artifact/com.google.guava/guava
+    compile group: 'com.google.guava', name: 'guava', version: '21.0'
+
+
+
 }
 
 task sourcesJar(type: Jar, dependsOn: classes) {

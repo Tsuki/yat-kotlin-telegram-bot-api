@@ -1,5 +1,6 @@
 package org.yanex.telegram
 
+import com.google.common.base.MoreObjects
 import java.io.File
 import java.io.FileInputStream
 import java.io.FileOutputStream
@@ -9,14 +10,21 @@ class TelegramProperties {
     val token: String
         get() = readProperties().getProperty(PROP_TOKEN) ?: throw RuntimeException("Token is not set in " + FILE_NAME)
 
+    val hookUrl: String
+        get() = readProperties().getProperty(HOOK_URL) ?: throw RuntimeException("HookUrl is not set in " + FILE_NAME)
+
+    val webHook: Boolean
+        get() = readProperties().getProperty(WEB_HOOK)?.toBoolean() ?: false
+
+    val handleUnknown: Boolean
+        get() = readProperties().getProperty(HANDLE_UNKNOWN)?.toBoolean() ?: true
+
     var lastId: Long
         get() = readProperties().getProperty(PROP_LAST_ID)?.toLong() ?: 0
         set(lastId) = writeProperties(readProperties().apply {
             setProperty(PROP_LAST_ID, lastId.toString())
         })
 
-    val handleUnknown: Boolean
-        get() = readProperties().getProperty(HANDLE_UNKNOWN)?.toBoolean() ?: false
 
     private fun writeProperties(props: Properties) {
         FileOutputStream(file).use { output -> props.store(output, null) }
@@ -24,6 +32,16 @@ class TelegramProperties {
 
     private fun readProperties() = Properties().apply {
         FileInputStream(file).use { input -> load(input) }
+    }
+
+    override fun toString(): String {
+        return MoreObjects.toStringHelper(this)
+                .add("hookUrl", hookUrl)
+                .add("webHook", webHook)
+                .add("handleUnknown", handleUnknown)
+                .add("lastId", lastId)
+                .add("token", token)
+                .toString()
     }
 
     private companion object {
@@ -37,6 +55,8 @@ class TelegramProperties {
         val PROP_TOKEN = "token"
         val HANDLE_UNKNOWN = "handleUnknown"
         val PROP_LAST_ID = "lastId"
+        val HOOK_URL = "hookUrl"
+        val WEB_HOOK = "webHook"
     }
 
 }

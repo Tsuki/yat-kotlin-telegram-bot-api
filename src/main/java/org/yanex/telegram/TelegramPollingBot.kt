@@ -4,7 +4,6 @@ import com.google.gson.Gson
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import okhttp3.logging.HttpLoggingInterceptor.Level
-import okhttp3.logging.HttpLoggingInterceptor.Level.BASIC
 import org.yanex.telegram.handler.StopProcessingException
 import org.yanex.telegram.handler.UpdateHandler
 import retrofit2.Retrofit
@@ -17,7 +16,7 @@ class TelegramPollingBot internal constructor(
         val timeout: Int = 30) : TelegramBot(), TelegramBotService by serviceProvider {
     companion object {
         @JvmStatic
-        fun create(token: String, timeout: Int = 30, logLevel: Level = BASIC): TelegramBot {
+        fun create(properties: TelegramProperties, timeout: Int = 30, logLevel: Level = Level.BASIC): TelegramBot {
             val logging = HttpLoggingInterceptor().apply {
                 level = logLevel
             }
@@ -29,12 +28,17 @@ class TelegramPollingBot internal constructor(
                     .writeTimeout(timeout + 10L, TimeUnit.SECONDS)
                     .build()
             val adapter = Retrofit.Builder()
-                    .baseUrl("https://api.telegram.org/bot$token/")
+                    .baseUrl("https://api.telegram.org/bot${properties.token}/")
                     .addConverterFactory(GsonConverterFactory.create(Gson()))
                     .client(httpClient)
                     .build()
-
-            return TelegramPollingBot(adapter.create(TelegramBotService::class.java), timeout)
+            val bot = TelegramPollingBot(adapter.create(TelegramBotService::class.java), timeout)
+            val response = bot.deleteWebhook().execute()
+            if (!response.isSuccessful) {
+                logger.error("Delete web hook error message: ${response.errorBody().string()}")
+                throw StopProcessingException()
+            }
+            return bot
         }
     }
 
