@@ -5,14 +5,12 @@ apply plugin: 'net.researchgate.release'
 
 sourceCompatibility = 1.8
 buildscript {
-    ext {
-        kotlinVersion = '1.0.5-2'
-        springBootVersion = '1.4.2.RELEASE'
-    }
     repositories {
         mavenCentral()
     }
     dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:${kotlinVersion}")
         classpath 'net.researchgate:gradle-release:2.4.0'
     }
 }
