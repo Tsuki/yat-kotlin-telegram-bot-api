@@ -4,7 +4,18 @@ apply plugin: 'maven'
 apply plugin: 'net.researchgate.release'
 
 sourceCompatibility = 1.8
-
+buildscript {
+    ext {
+        kotlinVersion = '1.0.5-2'
+        springBootVersion = '1.4.2.RELEASE'
+    }
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'net.researchgate:gradle-release:2.4.0'
+    }
+}
 repositories {
     mavenCentral()
     jcenter()
