@@ -1,15 +1,16 @@
 package com.sukitsuki.telegram
 
 import com.google.gson.Gson
+import com.sukitsuki.telegram.entities.Update
+import com.sukitsuki.telegram.handler.StopProcessingException
+import com.sukitsuki.telegram.handler.UpdateHandler
 import io.vertx.core.Vertx
+import io.vertx.core.http.HttpServer
 import io.vertx.core.http.HttpServerOptions
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import okhttp3.logging.HttpLoggingInterceptor.Level
 import okhttp3.logging.HttpLoggingInterceptor.Level.BASIC
-import com.sukitsuki.telegram.entities.Update
-import com.sukitsuki.telegram.handler.StopProcessingException
-import com.sukitsuki.telegram.handler.UpdateHandler
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
@@ -19,6 +20,11 @@ class TelegramHoopingBot internal constructor(
         serviceProvider: TelegramBotService) :
         TelegramBot(), TelegramBotService by serviceProvider {
     val vertx: Vertx = Vertx.vertx()
+    val options = HttpServerOptions()
+    val gson = Gson()
+
+
+    lateinit var server: HttpServer;
 
     companion object {
         @JvmStatic
@@ -27,6 +33,7 @@ class TelegramHoopingBot internal constructor(
             val logging = HttpLoggingInterceptor().apply {
                 level = logLevel
             }
+
 
             val httpClient = OkHttpClient.Builder()
                     .addInterceptor(logging)
@@ -52,10 +59,8 @@ class TelegramHoopingBot internal constructor(
     }
 
     override fun listen(maxId: Long, handler: UpdateHandler): Long {
-        val options = HttpServerOptions()
-        val gson = Gson()
         options.logActivity = true
-        vertx.createHttpServer(options)
+        server = vertx.createHttpServer(options)
                 .requestHandler {
                     val response = it.response()
                     response.statusCode = 200
