@@ -4,7 +4,7 @@ import com.google.gson.annotations.SerializedName as Name
 
 /**
  * This object represents a message.
- * 
+ *
  * @property messageId Unique message identifier.
  * @property from Sender, can be empty for messages sent to channels.
  * @property date Date the message was sent in Unix time.
@@ -12,7 +12,7 @@ import com.google.gson.annotations.SerializedName as Name
  * @property forwardFrom For forwarded messages, sender of the original message.
  * @property forwardFromChat For messages forwarded from a channel, information about the original channel.
  * @property forwardDate For forwarded messages, date the original message was sent in Unix time.
- * @property replyToMessage For replies, the original message. 
+ * @property replyToMessage For replies, the original message.
  *           Note that the Message object in this field will not contain further reply_to_message fields even if it itself is a reply.
  * @property editDate the message was last edited in Unix time.
  * @property text For text messages, the actual UTF-8 text of the message, 0-4096 characters.
@@ -33,15 +33,15 @@ import com.google.gson.annotations.SerializedName as Name
  * @property newChatPhoto  List of A chat photo was change to this value.
  * @property deleteChatPhoto Service message: the chat photo was deleted.
  * @property groupChatCreated Service message: the group has been created.
- * @property supergroupChatCreated Service message: the supergroup has been created. 
- *           This field can‘t be received in a message coming through updates, because bot can’t be a member of a supergroup when it is created. 
+ * @property supergroupChatCreated Service message: the supergroup has been created.
+ *           This field can‘t be received in a message coming through updates, because bot can’t be a member of a supergroup when it is created.
  *           It can only be found in reply_to_message if someone replies to a very first message in a directly created supergroup.
- * @property channelChatCreated Service message: the channel has been created. 
- *           This field can‘t be received in a message coming through updates, because bot can’t be a member of a channel when it is created. 
+ * @property channelChatCreated Service message: the channel has been created.
+ *           This field can‘t be received in a message coming through updates, because bot can’t be a member of a channel when it is created.
  *           It can only be found in reply_to_message if someone replies to a very first message in a channel.
  * @property migrateToChatId The group has been migrated to a supergroup with the specified identifier.
  * @property migrateFromChatId The supergroup has been migrated from a group with the specified identifier.
- * @property pinnedMessage Specified message was pinned. 
+ * @property pinnedMessage Specified message was pinned.
  *           Note that the Message object in this field will not contain further reply_to_message fields even if it is itself a reply.
  */
 data class Message(
