@@ -1,12 +1,8 @@
 package com.sukitsuki.telegram
 
-import com.sukitsuki.telegram.entities.ChatAction
-import com.sukitsuki.telegram.entities.Message
-import com.sukitsuki.telegram.entities.ReplyMarkup
-import com.sukitsuki.telegram.entities.User
+import com.sukitsuki.telegram.entities.*
 import okhttp3.MediaType
 import okhttp3.RequestBody
-import com.sukitsuki.telegram.entities.*
 import retrofit2.Call
 import retrofit2.http.*
 import java.nio.file.Files
@@ -19,8 +15,8 @@ private val APPLICATION_JSON_MIME = MediaType.parse("application/json")
 data class Response<out T>(
         val result: T?,
         val ok: Boolean,
-        @com.google.gson.annotations.SerializedName("error_code") val errorCode: Int?,
-        @com.google.gson.annotations.SerializedName("description") val errorDescription: String?)
+        @Name("error_code") val errorCode: Int?,
+        @Name("description") val errorDescription: String?)
 
 private fun inputFile(file: java.io.File, mimeType: String? = null): RequestBody {
     return RequestBody.create(MediaType.parse(mimeType ?: Files.probeContentType(file.toPath())), file)

@@ -4,9 +4,7 @@ import com.google.gson.Gson
 import com.sukitsuki.telegram.entities.Update
 import com.sukitsuki.telegram.handler.StopProcessingException
 import com.sukitsuki.telegram.handler.UpdateHandler
-import io.vertx.core.Vertx
 import io.vertx.core.http.HttpServer
-import io.vertx.core.http.HttpServerOptions
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import okhttp3.logging.HttpLoggingInterceptor.Level
@@ -19,12 +17,8 @@ import java.util.concurrent.TimeUnit
 class TelegramHoopingBot internal constructor(
         serviceProvider: TelegramBotService) :
         TelegramBot(), TelegramBotService by serviceProvider {
-    val vertx: Vertx = Vertx.vertx()
-    val options = HttpServerOptions()
-    val gson = Gson()
 
-
-    lateinit var server: HttpServer;
+    lateinit var server: HttpServer
 
     companion object {
         @JvmStatic
