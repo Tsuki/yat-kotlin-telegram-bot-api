@@ -3,24 +3,24 @@ package com.sukitsuki.telegram.handler
 import com.sukitsuki.telegram.Response
 import com.sukitsuki.telegram.entities.Message
 import com.sukitsuki.telegram.entities.Update
+import org.joda.time.DateTime
 
 class VisitorUpdateHandler(val visitor: UpdateVisitor) : UpdateHandler {
     override fun onError(response: Response<*>) = visitor.onError(response)
     override fun handleUpdate(update: Update) = visitor.processUpdate(update)
-    
+
     private fun UpdateVisitor.processUpdate(update: Update) {
-        val result = if (update.message != null) {
-            handleNewMessage(update, update.message)
-        } else if (update.editedMessage != null) {
-            visitEdited(update, update.editedMessage)
-        } else if (update.inlineQuery != null) {
-            visitInlineQuery(update, update.inlineQuery)
-        } else if (update.chosenInlineResult != null) {
-            visitChosenInlineResult(update, update.chosenInlineResult)
-        } else if (update.callbackQuery != null) {
-            visitCallbackQuery(update, update.callbackQuery)
-        } else {
-            false
+        val result = when {
+            update.message != null -> {
+                if ((DateTime().millis / 1000) > update.message.date + 6000) {
+                    handleNewMessage(update, update.message)
+                };true
+            }
+            update.editedMessage != null -> visitEdited(update, update.editedMessage)
+            update.inlineQuery != null -> visitInlineQuery(update, update.inlineQuery)
+            update.chosenInlineResult != null -> visitChosenInlineResult(update, update.chosenInlineResult)
+            update.callbackQuery != null -> visitCallbackQuery(update, update.callbackQuery)
+            else -> false
         }
 
         if (!result) {
