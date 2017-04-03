@@ -12,5 +12,5 @@ import com.google.gson.annotations.SerializedName as Name
  */
 data class KeyboardButton(
         val text: String,
-        @com.google.gson.annotations.SerializedName("request_contact") val requestContact: Boolean,
-        @com.google.gson.annotations.SerializedName("request_location") val requestLocation: Boolean)
+        @Name("request_contact") val requestContact: Boolean,
+        @Name("request_location") val requestLocation: Boolean)

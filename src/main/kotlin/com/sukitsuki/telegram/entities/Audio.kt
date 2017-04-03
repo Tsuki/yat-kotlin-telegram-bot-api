@@ -13,9 +13,9 @@ import com.google.gson.annotations.SerializedName as Name
  * @property fileSize File size.
  */
 data class Audio(
-        @com.google.gson.annotations.SerializedName("file_id") val fileId: String,
+        @Name("file_id") val fileId: String,
         val duration: Int,
         val performer: String?,
         val title: String?,
-        @com.google.gson.annotations.SerializedName("mime_type") val mimeType: String?,
-        @com.google.gson.annotations.SerializedName("file_size") val fileSize: Int?)
+        @Name("mime_type") val mimeType: String?,
+        @Name("file_size") val fileSize: Int?)

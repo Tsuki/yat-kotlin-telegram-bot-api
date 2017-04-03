@@ -14,5 +14,5 @@ data class Venue(
         val location: Location, 
         val title: String,
         val address: String,
-        @com.google.gson.annotations.SerializedName("foursquare_id") val foursquareId: String?
+        @Name("foursquare_id") val foursquareId: String?
 )

@@ -39,7 +39,7 @@ interface TelegramBotService {
             @Field("parse_mode") parseMode: String? = null,
             @Field("disable_web_page_preview") disableWebPagePreview: Boolean? = null,
             @Field("disable_notification") disableNotification: Boolean? = null,
-            @Field("reply_to_message_id") replyToMessageId: Int? = null,
+            @Field("reply_to_message_id") replyToMessageId: Long? = null,
             @Field("reply_markup") replyMarkup: ReplyMarkup? = null
                    ): Call<Response<Message>>
 
@@ -50,7 +50,7 @@ interface TelegramBotService {
             @Field("parse_mode") parseMode: String? = null,
             @Field("disable_web_page_preview") disableWebPagePreview: Boolean? = null,
             @Field("disable_notification") disableNotification: Boolean? = null,
-            @Field("reply_to_message_id") replyToMessageId: Int? = null,
+            @Field("reply_to_message_id") replyToMessageId: Long? = null,
             @Field("reply_markup") replyMarkup: ReplyMarkup? = null
                    ): Call<Response<Message>>
 

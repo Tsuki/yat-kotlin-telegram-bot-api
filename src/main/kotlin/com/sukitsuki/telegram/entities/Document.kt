@@ -12,8 +12,8 @@ import com.google.gson.annotations.SerializedName as Name
  * @property fileSize File size.
  */
 data class Document(
-        @com.google.gson.annotations.SerializedName("file_id") val fileId: String,
+        @Name("file_id") val fileId: String,
         val thumb: PhotoSize?,
-        @com.google.gson.annotations.SerializedName("file_name") val fileName: String?,
-        @com.google.gson.annotations.SerializedName("mime_type") val mimeType: String?,
-        @com.google.gson.annotations.SerializedName("file_size") val fileSize: Int?)
+        @Name("file_name") val fileName: String?,
+        @Name("mime_type") val mimeType: String?,
+        @Name("file_size") val fileSize: Int?)

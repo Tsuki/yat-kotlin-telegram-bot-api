@@ -19,5 +19,5 @@ import com.google.gson.annotations.SerializedName as Name
 data class InlineKeyboardButton(
         val text: String,
         val url: String?,
-        @com.google.gson.annotations.SerializedName("callback_data") val callbackData: String?,
-        @com.google.gson.annotations.SerializedName("switch_inline_query") val switchInlineQuery: String?)
+        @Name("callback_data") val callbackData: String?,
+        @Name("switch_inline_query") val switchInlineQuery: String?)

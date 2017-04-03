@@ -15,12 +15,12 @@ import com.google.gson.annotations.SerializedName as Name
  * @property callbackQuery New incoming callback query.
  */
 data class Update(
-        @com.google.gson.annotations.SerializedName("update_id") val updateId: Long,
+        @Name("update_id") val updateId: Long,
         val message: Message?,
-        @com.google.gson.annotations.SerializedName("edited_message") val editedMessage: Message?,
-        @com.google.gson.annotations.SerializedName("inline_query") val inlineQuery: InlineQuery?,
-        @com.google.gson.annotations.SerializedName("chosen_inline_result") val chosenInlineResult: ChosenInlineResult?,
-        @com.google.gson.annotations.SerializedName("callback_query") val callbackQuery: CallbackQuery?) {
+        @Name("edited_message") val editedMessage: Message?,
+        @Name("inline_query") val inlineQuery: InlineQuery?,
+        @Name("chosen_inline_result") val chosenInlineResult: ChosenInlineResult?,
+        @Name("callback_query") val callbackQuery: CallbackQuery?) {
     val senderId: Long
         get() {
             return message?.chat?.id ?: when {

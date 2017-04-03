@@ -16,6 +16,6 @@ data class Chat(
         val id: Long,
         val type: String,
         val title: String?,
-        @com.google.gson.annotations.SerializedName("username") val userName: String?,
-        @com.google.gson.annotations.SerializedName("first_name") val firstName: String?,
-        @com.google.gson.annotations.SerializedName("last_name") val lastName: String?)
+        @Name("username") val userName: String?,
+        @Name("first_name") val firstName: String?,
+        @Name("last_name") val lastName: String?)

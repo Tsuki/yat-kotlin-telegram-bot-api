@@ -18,5 +18,5 @@ data class CallbackQuery(
         val id: String,
         val from: User,
         val message: Message?,
-        @com.google.gson.annotations.SerializedName("inline_message_id") val inlineMessageId: String?,
+        @Name("inline_message_id") val inlineMessageId: String?,
         val data: String)

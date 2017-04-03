@@ -11,7 +11,7 @@ import com.google.gson.annotations.SerializedName as Name
  * @property userId Contact's user identifier in Telegram.
  */
 data class Contact(
-        @com.google.gson.annotations.SerializedName("photo_number") val photoNumber: String,
-        @com.google.gson.annotations.SerializedName("first_name") val firstName: String,
-        @com.google.gson.annotations.SerializedName("last_name") val lastName: String?,
-        @com.google.gson.annotations.SerializedName("user_id") val userId: Long?)
+        @Name("photo_number") val photoNumber: String,
+        @Name("first_name") val firstName: String,
+        @Name("last_name") val lastName: String?,
+        @Name("user_id") val userId: Long?)

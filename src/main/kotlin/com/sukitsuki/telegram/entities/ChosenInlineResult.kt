@@ -14,8 +14,8 @@ import com.google.gson.annotations.SerializedName as Name
  * @property query The query that was used to obtain the result.
  */
 data class ChosenInlineResult(
-        @com.google.gson.annotations.SerializedName("result_id") val resultId: String,
+        @Name("result_id") val resultId: String,
         val from: User,
         val location: Location?,
-        @com.google.gson.annotations.SerializedName("inline_message_id") val inlineMessageId: String?,
+        @Name("inline_message_id") val inlineMessageId: String?,
         val query: String)

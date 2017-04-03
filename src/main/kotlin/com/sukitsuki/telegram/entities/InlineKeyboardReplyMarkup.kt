@@ -9,7 +9,7 @@ import com.google.gson.annotations.SerializedName as Name
  * @property inlineKeyboard List of button rows, each represented by an List of InlineKeyboardButton objects.
  */
 data class InlineKeyboardReplyMarkup(
-        @com.google.gson.annotations.SerializedName("inline_keyboard") val inlineKeyboard: List<List<InlineKeyboardButton>>) : ReplyMarkup {
+        @Name("inline_keyboard") val inlineKeyboard: List<List<InlineKeyboardButton>>) : ReplyMarkup {
     private companion object {
         val GSON = Gson()
     }

@@ -15,6 +15,6 @@ import com.google.gson.annotations.SerializedName as Name
  * @property filePath File path. Use https://api.telegram.org/file/bot<token>/<file_path> to get the file.
  */
 data class File(
-        @com.google.gson.annotations.SerializedName("file_id") val fileId: String,
-        @com.google.gson.annotations.SerializedName("file_size") val fileSize: Int?,
-        @com.google.gson.annotations.SerializedName("file_path") val filePath: String?)
+        @Name("file_id") val fileId: String,
+        @Name("file_size") val fileSize: Int?,
+        @Name("file_path") val filePath: String?)
