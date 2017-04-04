@@ -1,7 +1,7 @@
 package com.sukitsuki.telegram.entities
 
 import com.google.gson.Gson
-import com.google.gson.annotations.SerializedName
+import com.google.gson.annotations.SerializedName as Name
 
 /**
  * Upon receiving a message with this object, Telegram clients will hide the current custom keyboard and display the default letter-keyboard. 
@@ -17,7 +17,7 @@ import com.google.gson.annotations.SerializedName
  *           2) if the bot's message is a reply (has reply_to_message_id), sender of the original message.
  */
 data class HideKeyboardReplyMarkup(
-        @SerializedName("hide_keyboard") val hideKeyboard: Boolean = true,
+        @Name("hide_keyboard") val hideKeyboard: Boolean = true,
         val selective: Boolean? = null
 ) : ReplyMarkup {
     private companion object {

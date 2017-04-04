@@ -1,6 +1,6 @@
 package com.sukitsuki.telegram.entities
 
-import com.google.gson.annotations.SerializedName
+import com.google.gson.annotations.SerializedName as Name
 
 /**
  * This object represents one size of a photo or a file / sticker thumbnail.
@@ -11,7 +11,7 @@ import com.google.gson.annotations.SerializedName
  * @property fileSize File size.
  */
 data class PhotoSize(
-        @SerializedName("file_id") val fileId: String,
+        @Name("file_id") val fileId: String,
         val width: Int,
         val height: Int,
-        @SerializedName("file_size") val fileSize: Int?)
+        @Name("file_size") val fileSize: Int?)

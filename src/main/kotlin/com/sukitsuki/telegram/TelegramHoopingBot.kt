@@ -4,9 +4,8 @@ import com.google.gson.Gson
 import com.sukitsuki.telegram.entities.Update
 import com.sukitsuki.telegram.handler.StopProcessingException
 import com.sukitsuki.telegram.handler.UpdateHandler
-import io.vertx.core.http.HttpServer
-import okhttp3.Cache
-import okhttp3.OkHttpClient
+import okhttp3.*
+import okhttp3.Response
 import okhttp3.logging.HttpLoggingInterceptor
 import okhttp3.logging.HttpLoggingInterceptor.Level
 import okhttp3.logging.HttpLoggingInterceptor.Level.BASIC
@@ -27,15 +26,16 @@ class TelegramHoopingBot internal constructor(
                 level = logLevel
             }
             val cacheSize = 10 * 1024 * 1024L // 10 MiB
-            val cache = Cache(File("Cache"), cacheSize)
 
             val httpClient = OkHttpClient.Builder()
+                    .addNetworkInterceptor(NetInterceptor())
                     .addInterceptor(logging)
-                    .cache(cache)
+                    .cache(Cache(File("Cache"), cacheSize))
                     .build()
+
             val adapter = Retrofit.Builder()
                     .baseUrl("https://api.telegram.org/bot${properties.token}/")
-                    .addConverterFactory(GsonConverterFactory.create(Gson()))
+                    .addConverterFactory(GsonConverterFactory.create())
                     .client(httpClient)
                     .build()
 
@@ -46,8 +46,20 @@ class TelegramHoopingBot internal constructor(
         }
     }
 
+    class NetInterceptor : Interceptor {
+        override fun intercept(chain: Interceptor.Chain): Response? {
+            val cacheControl = CacheControl.Builder()
+                    .maxAge(1, TimeUnit.HOURS)
+                    .maxStale(1, TimeUnit.DAYS)
+                    .build()
+
+            return chain.proceed(chain.request()).newBuilder()
+                    .header("Cache-Control", cacheControl.toString())
+                    .removeHeader("Pragma").build()
+        }
+    }
+
     override fun listen(maxId: Long, handler: UpdateHandler): Long {
-//        options.logActivity = true
         server = vertx.createHttpServer(options)
                 .requestHandler {
                     val response = it.response()

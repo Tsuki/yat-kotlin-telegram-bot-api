@@ -1,7 +1,7 @@
 package com.sukitsuki.telegram.entities
 
 import com.google.gson.Gson
-import com.google.gson.annotations.SerializedName
+import com.google.gson.annotations.SerializedName as Name
 
 /**
  * This object represents a custom keyboard with reply options.
@@ -23,8 +23,8 @@ import com.google.gson.annotations.SerializedName
  */
 data class KeyboardReplyMarkup(
         val keyboard: List<List<String>>,
-        @SerializedName("resize_keyboard") val resizeKeyboard: Boolean = false,
-        @SerializedName("one_time_keyboard") val oneTimeKeyboard: Boolean = false,
+        @Name("resize_keyboard") val resizeKeyboard: Boolean = false,
+        @Name("one_time_keyboard") val oneTimeKeyboard: Boolean = false,
         val selective: Boolean? = null
 ) : ReplyMarkup {
     constructor(

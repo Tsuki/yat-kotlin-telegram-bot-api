@@ -24,7 +24,9 @@ class TelegramProperties(FILE_NAME: String = "telegram.properties") {
         set(lastId) = writeProperties(readProperties().apply {
             setProperty(PROP_LAST_ID, lastId.toString())
         })
-
+    
+    val admin: List<Long>
+        get() = readProperties().getProperty(ADMIN)?.split(",")?.map(String::toLong) ?: emptyList()
 
     private fun writeProperties(props: Properties) {
         FileOutputStream(file).use { output -> props.store(output, null) }
@@ -55,6 +57,7 @@ class TelegramProperties(FILE_NAME: String = "telegram.properties") {
         val PROP_LAST_ID = "lastId"
         val HOOK_URL = "hookUrl"
         val WEB_HOOK = "webHook"
+        val ADMIN = "admin"
     }
 
 }

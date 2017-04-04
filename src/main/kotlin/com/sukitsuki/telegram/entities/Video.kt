@@ -1,6 +1,6 @@
 package com.sukitsuki.telegram.entities
 
-import com.google.gson.annotations.SerializedName
+import com.google.gson.annotations.SerializedName as Name
 
 /**
  * This object represents a video file.
@@ -14,10 +14,10 @@ import com.google.gson.annotations.SerializedName
  * @property fileSize File size.
  */
 data class Video(
-        @SerializedName("file_id") val fileId: String,
+        @Name("file_id") val fileId: String,
         val width: Int,
         val height: Int,
         val duration: Int,
         val thumb: PhotoSize?,
-        @SerializedName("mime_type") val mimeType: String?,
-        @SerializedName("file_size") val fileSize: Int?)
+        @Name("mime_type") val mimeType: String?,
+        @Name("file_size") val fileSize: Int?)

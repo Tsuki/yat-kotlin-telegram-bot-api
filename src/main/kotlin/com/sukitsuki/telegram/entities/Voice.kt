@@ -1,6 +1,6 @@
 package com.sukitsuki.telegram.entities
 
-import com.google.gson.annotations.SerializedName
+import com.google.gson.annotations.SerializedName as Name
 
 /**
  * Voice
@@ -12,7 +12,7 @@ This object represents a voice note.
  * @property fileSize File size.
  */
 data class Voice(
-        @SerializedName("file_id") val fileId: String,
+        @Name("file_id") val fileId: String,
         val duration: Int,
-        @SerializedName("mime_type") val mimeType: String?,
-        @SerializedName("file_size") val fileSize: Int?)
+        @Name("mime_type") val mimeType: String?,
+        @Name("file_size") val fileSize: Int?)

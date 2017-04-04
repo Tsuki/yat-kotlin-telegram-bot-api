@@ -1,6 +1,6 @@
 package com.sukitsuki.telegram.entities
 
-import com.google.gson.annotations.SerializedName
+import com.google.gson.annotations.SerializedName as Name
 
 /**
  * This object represents a sticker.
@@ -13,9 +13,9 @@ import com.google.gson.annotations.SerializedName
  * @property fileSize File size.
  */
 data class Sticker(
-        @SerializedName("file_id") val fileId: String,
+        @Name("file_id") val fileId: String,
         val width: Int,
         val height: Int,
         val thumb: PhotoSize?,
         val emoji: String?,
-        @SerializedName("file_size") val fileSize: Int?)
+        @Name("file_size") val fileSize: Int?)

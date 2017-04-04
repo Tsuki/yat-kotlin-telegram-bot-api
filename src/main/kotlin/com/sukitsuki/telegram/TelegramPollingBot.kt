@@ -29,7 +29,7 @@ class TelegramPollingBot internal constructor(
                     .build()
             val adapter = Retrofit.Builder()
                     .baseUrl("https://api.telegram.org/bot${properties.token}/")
-                    .addConverterFactory(GsonConverterFactory.create(Gson()))
+                    .addConverterFactory(GsonConverterFactory.create())
                     .client(httpClient)
                     .build()
             val bot = TelegramPollingBot(adapter.create(TelegramBotService::class.java), timeout)
