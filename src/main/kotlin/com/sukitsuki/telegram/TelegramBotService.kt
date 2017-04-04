@@ -22,8 +22,6 @@ private fun inputFile(file: java.io.File, mimeType: String? = null): RequestBody
     return RequestBody.create(MediaType.parse(mimeType ?: Files.probeContentType(file.toPath())), file)
 }
 
-//private val GSON = Gson()
-
 private fun requestString(text: String) = RequestBody.create(PLAIN_TEXT_MIME, text)
 
 private fun requestJson(text: String) = RequestBody.create(APPLICATION_JSON_MIME, text)

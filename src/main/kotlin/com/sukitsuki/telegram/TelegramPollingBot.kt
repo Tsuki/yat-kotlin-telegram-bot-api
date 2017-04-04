@@ -33,6 +33,8 @@ class TelegramPollingBot internal constructor(
                     .client(httpClient)
                     .build()
             val bot = TelegramPollingBot(adapter.create(TelegramBotService::class.java), timeout)
+            bot.properties = properties
+            bot.client = httpClient
             val response = bot.deleteWebhook().execute()
             if (!response.isSuccessful) {
                 logger.error("Delete web hook error message: ${response.errorBody().string()}")
