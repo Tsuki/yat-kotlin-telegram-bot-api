@@ -13,7 +13,7 @@ class VisitorUpdateHandler(val visitor: UpdateVisitor) : UpdateHandler {
         var result = true
         when {
             update.message != null ->
-                if ((DateTime().millis / 1000) > update.message.date - 6000) {
+                if ((DateTime().millis / 1000) < update.message.date + 1800) {
                     handleNewMessage(update, update.message)
                 }
             update.editedMessage != null -> visitEdited(update, update.editedMessage)
