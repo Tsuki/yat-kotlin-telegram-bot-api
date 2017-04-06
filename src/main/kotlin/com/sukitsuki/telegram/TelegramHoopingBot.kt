@@ -60,20 +60,26 @@ class TelegramHoopingBot internal constructor(
     }
 
     override fun listen(maxId: Long, handler: UpdateHandler): Long {
+        options.logActivity = true
         server = vertx.createHttpServer(options)
-                .requestHandler {
-                    val response = it.response()
+        .requestHandler {
+            val response = it.response()
+            it.bodyHandler { body ->
+                if (body.bytes.isEmpty()){
+                    return@bodyHandler
+                }
+                val update = gson.fromJson(body.toString(), Update::class.java)
+                try {
+                    handler.handleUpdate(update)
+                } catch(e: StopProcessingException) {
                     response.statusCode = 200
-                    response.end()
-                    it.bodyHandler { body ->
-                        val update = gson.fromJson(body.toString(), Update::class.java)
-                        try {
-                            handler.handleUpdate(update)
-                        } catch(e: StopProcessingException) {
-                            exit(0)
-                        }
-                    }
-                }.listen(8443)
+                    response.end("{\"ok\": true}")
+                    exit(0)
+                }
+                response.statusCode = 200
+                response.end("{\"ok\": true}")
+            }
+        }.listen(8443)
         val response = this.setWebhook(properties.hookUrl).execute()
         if (!response.isSuccessful) {
             logger.error("Set web hook ${properties.hookUrl} error message: ${response.errorBody().string()}")
