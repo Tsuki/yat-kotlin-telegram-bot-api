@@ -18,13 +18,12 @@ data class Response<out T>(
         @Name("error_code") val errorCode: Int?,
         @Name("description") val errorDescription: String?)
 
-private fun inputFile(file: java.io.File, mimeType: String? = null): RequestBody {
+fun inputFile(file: java.io.File, mimeType: String? = null): RequestBody {
     return RequestBody.create(MediaType.parse(mimeType ?: Files.probeContentType(file.toPath())), file)
 }
 
-private fun requestString(text: String) = RequestBody.create(PLAIN_TEXT_MIME, text)
-
-private fun requestJson(text: String) = RequestBody.create(APPLICATION_JSON_MIME, text)
+fun requestString(text: String) = RequestBody.create(PLAIN_TEXT_MIME, text)
+fun requestJson(text: String) = RequestBody.create(APPLICATION_JSON_MIME, text)
 
 interface TelegramBotService {
     @GET("getMe")
@@ -39,7 +38,7 @@ interface TelegramBotService {
             @Field("disable_notification") disableNotification: Boolean? = null,
             @Field("reply_to_message_id") replyToMessageId: Long? = null,
             @Field("reply_markup") replyMarkup: ReplyMarkup? = null
-                   ): Call<Response<Message>>
+    ): Call<Response<Message>>
 
     @POST("sendMessage") @FormUrlEncoded
     fun sendMessage(
@@ -50,7 +49,7 @@ interface TelegramBotService {
             @Field("disable_notification") disableNotification: Boolean? = null,
             @Field("reply_to_message_id") replyToMessageId: Long? = null,
             @Field("reply_markup") replyMarkup: ReplyMarkup? = null
-                   ): Call<Response<Message>>
+    ): Call<Response<Message>>
 
     @POST("forwardMessage") @FormUrlEncoded
     fun forwardMessage(
@@ -58,7 +57,7 @@ interface TelegramBotService {
             @Field("from_chat_id") fromChatId: String,
             @Field("message_id") messageId: Long,
             @Field("disable_notification") disableNotification: Boolean? = null
-                      ): Call<Response<Message>>
+    ): Call<Response<Message>>
 
     @POST("forwardMessage") @FormUrlEncoded
     fun forwardMessage(
@@ -66,7 +65,7 @@ interface TelegramBotService {
             @Field("from_chat_id") fromChatId: String,
             @Field("message_id") messageId: Long,
             @Field("disable_notification") disableNotification: Boolean? = null
-                      ): Call<Response<Message>>
+    ): Call<Response<Message>>
 
     @POST("sendPhoto") @FormUrlEncoded
     fun sendPhoto(
@@ -76,7 +75,7 @@ interface TelegramBotService {
             @Field("disable_notification") disableNotification: Boolean? = null,
             @Field("reply_to_message_id") replyToMessageId: Int? = null,
             @Field("reply_markup") replyMarkup: ReplyMarkup? = null
-                 ): Call<Response<Message>>
+    ): Call<Response<Message>>
 
     @POST("sendPhoto") @FormUrlEncoded
     fun sendPhoto(
@@ -86,7 +85,7 @@ interface TelegramBotService {
             @Field("disable_notification") disableNotification: Boolean? = null,
             @Field("reply_to_message_id") replyToMessageId: Int? = null,
             @Field("reply_markup") replyMarkup: ReplyMarkup? = null
-                 ): Call<Response<Message>>
+    ): Call<Response<Message>>
 
     @POST("sendPhoto") @Multipart
     fun sendPhoto(
@@ -96,7 +95,7 @@ interface TelegramBotService {
             @Part("disable_notification") disableNotification: RequestBody?,
             @Part("reply_to_message_id") replyToMessageId: RequestBody?,
             @Part("reply_markup") replyMarkup: RequestBody?
-                 ): Call<Response<Message>>
+    ): Call<Response<Message>>
 
     fun sendPhoto(
             chatId: String,
@@ -105,7 +104,7 @@ interface TelegramBotService {
             disableNotification: Boolean? = null,
             replyToMessageId: Int? = null,
             replyMarkup: ReplyMarkup? = null
-                 ): Call<Response<Message>> {
+    ): Call<Response<Message>> {
         return sendPhoto(
                 requestString(chatId),
                 inputFile(photo),
@@ -113,7 +112,7 @@ interface TelegramBotService {
                 if (disableNotification != null) requestString(disableNotification.toString()) else null,
                 if (replyToMessageId != null) requestString(replyToMessageId.toString()) else null,
                 if (replyMarkup != null) requestJson(replyMarkup.toString()) else null
-                        )
+        )
     }
 
     fun sendPhoto(
@@ -123,7 +122,7 @@ interface TelegramBotService {
             disableNotification: Boolean? = null,
             replyToMessageId: Int? = null,
             replyMarkup: ReplyMarkup? = null
-                 ): Call<Response<Message>> {
+    ): Call<Response<Message>> {
         return sendPhoto(
                 requestString(chatId.toString()),
                 inputFile(photo),
@@ -131,7 +130,7 @@ interface TelegramBotService {
                 if (disableNotification != null) requestString(disableNotification.toString()) else null,
                 if (replyToMessageId != null) requestString(replyToMessageId.toString()) else null,
                 if (replyMarkup != null) requestJson(replyMarkup.toString()) else null
-                        )
+        )
     }
 
     @POST("sendAudio") @FormUrlEncoded
@@ -144,7 +143,7 @@ interface TelegramBotService {
             @Field("disable_notification") disableNotification: Boolean? = null,
             @Field("reply_to_message_id") replyToMessageId: Int? = null,
             @Field("reply_markup") replyMarkup: ReplyMarkup? = null
-                 ): Call<Response<Message>>
+    ): Call<Response<Message>>
 
     @POST("sendAudio") @FormUrlEncoded
     fun sendAudio(
@@ -156,7 +155,7 @@ interface TelegramBotService {
             @Field("disable_notification") disableNotification: Boolean? = null,
             @Field("reply_to_message_id") replyToMessageId: Int? = null,
             @Field("reply_markup") replyMarkup: ReplyMarkup? = null
-                 ): Call<Response<Message>>
+    ): Call<Response<Message>>
 
     @POST("sendAudio") @Multipart
     fun sendAudio(
@@ -168,7 +167,7 @@ interface TelegramBotService {
             @Part("disable_notification") disableNotification: Boolean? = null,
             @Part("reply_to_message_id") replyToMessageId: Int? = null,
             @Part("reply_markup") replyMarkup: ReplyMarkup? = null
-                 ): Call<Response<Message>>
+    ): Call<Response<Message>>
 
     @POST("sendAudio") @Multipart
     fun sendAudio(
@@ -180,7 +179,7 @@ interface TelegramBotService {
             @Part("disable_notification") disableNotification: Boolean? = null,
             @Part("reply_to_message_id") replyToMessageId: Int? = null,
             @Part("reply_markup") replyMarkup: ReplyMarkup? = null
-                 ): Call<Response<Message>>
+    ): Call<Response<Message>>
 
     @POST("sendDocument") @FormUrlEncoded
     fun sendDocument(
@@ -190,7 +189,7 @@ interface TelegramBotService {
             @Field("disable_notification") disableNotification: Boolean? = null,
             @Field("reply_to_message_id") replyToMessageId: Int? = null,
             @Field("reply_markup") replyMarkup: ReplyMarkup? = null
-                    ): Call<Response<Message>>
+    ): Call<Response<Message>>
 
     @POST("sendDocument") @FormUrlEncoded
     fun sendDocument(
@@ -200,7 +199,7 @@ interface TelegramBotService {
             @Field("disable_notification") disableNotification: Boolean? = null,
             @Field("reply_to_message_id") replyToMessageId: Int? = null,
             @Field("reply_markup") replyMarkup: ReplyMarkup? = null
-                    ): Call<Response<Message>>
+    ): Call<Response<Message>>
 
     @POST("sendDocument") @Multipart
     fun sendDocument(
@@ -210,7 +209,7 @@ interface TelegramBotService {
             @Part("disable_notification") disableNotification: Boolean? = null,
             @Part("reply_to_message_id") replyToMessageId: Int? = null,
             @Part("reply_markup") replyMarkup: ReplyMarkup? = null
-                    ): Call<Response<Message>>
+    ): Call<Response<Message>>
 
     @POST("sendDocument") @Multipart
     fun sendDocument(
@@ -220,7 +219,7 @@ interface TelegramBotService {
             @Part("disable_notification") disableNotification: Boolean? = null,
             @Part("reply_to_message_id") replyToMessageId: Int? = null,
             @Part("reply_markup") replyMarkup: ReplyMarkup? = null
-                    ): Call<Response<Message>>
+    ): Call<Response<Message>>
 
     @POST("sendSticker") @FormUrlEncoded
     fun sendSticker(
@@ -229,7 +228,7 @@ interface TelegramBotService {
             @Field("disable_notification") disableNotification: Boolean? = null,
             @Field("reply_to_message_id") replyToMessageId: Int? = null,
             @Field("reply_markup") replyMarkup: ReplyMarkup? = null
-                   ): Call<Response<Message>>
+    ): Call<Response<Message>>
 
     @POST("sendSticker") @FormUrlEncoded
     fun sendSticker(
@@ -238,7 +237,7 @@ interface TelegramBotService {
             @Field("disable_notification") disableNotification: Boolean? = null,
             @Field("reply_to_message_id") replyToMessageId: Int? = null,
             @Field("reply_markup") replyMarkup: ReplyMarkup? = null
-                   ): Call<Response<Message>>
+    ): Call<Response<Message>>
 
     @POST("sendSticker") @Multipart
     fun sendSticker(
@@ -247,7 +246,7 @@ interface TelegramBotService {
             @Part("disable_notification") disableNotification: Boolean? = null,
             @Part("reply_to_message_id") replyToMessageId: Int? = null,
             @Part("reply_markup") replyMarkup: ReplyMarkup? = null
-                   ): Call<Response<Message>>
+    ): Call<Response<Message>>
 
     @POST("sendSticker") @Multipart
     fun sendSticker(
@@ -256,7 +255,7 @@ interface TelegramBotService {
             @Part("disable_notification") disableNotification: Boolean? = null,
             @Part("reply_to_message_id") replyToMessageId: Int? = null,
             @Part("reply_markup") replyMarkup: ReplyMarkup? = null
-                   ): Call<Response<Message>>
+    ): Call<Response<Message>>
 
     @POST("sendVideo") @FormUrlEncoded
     fun sendVideo(
@@ -269,7 +268,7 @@ interface TelegramBotService {
             @Field("disable_notification") disableNotification: Boolean? = null,
             @Field("reply_to_message_id") replyToMessageId: Int? = null,
             @Field("reply_markup") replyMarkup: ReplyMarkup? = null
-                 ): Call<Response<Message>>
+    ): Call<Response<Message>>
 
     @POST("sendVideo") @FormUrlEncoded
     fun sendVideo(
@@ -282,7 +281,7 @@ interface TelegramBotService {
             @Field("disable_notification") disableNotification: Boolean? = null,
             @Field("reply_to_message_id") replyToMessageId: Int? = null,
             @Field("reply_markup") replyMarkup: ReplyMarkup? = null
-                 ): Call<Response<Message>>
+    ): Call<Response<Message>>
 
     @POST("sendVideo") @Multipart
     fun sendVideo(
@@ -295,7 +294,7 @@ interface TelegramBotService {
             @Part("disable_notification") disableNotification: Boolean? = null,
             @Part("reply_to_message_id") replyToMessageId: Int? = null,
             @Part("reply_markup") replyMarkup: ReplyMarkup? = null
-                 ): Call<Response<Message>>
+    ): Call<Response<Message>>
 
     @POST("sendVideo") @Multipart
     fun sendVideo(
@@ -308,7 +307,7 @@ interface TelegramBotService {
             @Part("disable_notification") disableNotification: Boolean? = null,
             @Part("reply_to_message_id") replyToMessageId: Int? = null,
             @Part("reply_markup") replyMarkup: ReplyMarkup? = null
-                 ): Call<Response<Message>>
+    ): Call<Response<Message>>
 
     @POST("sendVoice") @FormUrlEncoded
     fun sendVoice(
@@ -318,7 +317,7 @@ interface TelegramBotService {
             @Field("disable_notification") disableNotification: Boolean? = null,
             @Field("reply_to_message_id") replyToMessageId: Int? = null,
             @Field("reply_markup") replyMarkup: ReplyMarkup? = null
-                 ): Call<Response<Message>>
+    ): Call<Response<Message>>
 
     @POST("sendVoice") @FormUrlEncoded
     fun sendVoice(
@@ -328,7 +327,7 @@ interface TelegramBotService {
             @Field("disable_notification") disableNotification: Boolean? = null,
             @Field("reply_to_message_id") replyToMessageId: Int? = null,
             @Field("reply_markup") replyMarkup: ReplyMarkup? = null
-                 ): Call<Response<Message>>
+    ): Call<Response<Message>>
 
     @POST("sendVoice") @Multipart
     fun sendVoice(
@@ -338,7 +337,7 @@ interface TelegramBotService {
             @Part("disable_notification") disableNotification: Boolean? = null,
             @Part("reply_to_message_id") replyToMessageId: Int? = null,
             @Part("reply_markup") replyMarkup: ReplyMarkup? = null
-                 ): Call<Response<Message>>
+    ): Call<Response<Message>>
 
     @POST("sendVoice") @Multipart
     fun sendVoice(
@@ -348,7 +347,7 @@ interface TelegramBotService {
             @Part("disable_notification") disableNotification: Boolean? = null,
             @Part("reply_to_message_id") replyToMessageId: Int? = null,
             @Part("reply_markup") replyMarkup: ReplyMarkup? = null
-                 ): Call<Response<Message>>
+    ): Call<Response<Message>>
 
     @POST("sendLocation") @FormUrlEncoded
     fun sendLocation(
@@ -358,7 +357,7 @@ interface TelegramBotService {
             @Field("disable_notification") disableNotification: Boolean? = null,
             @Field("reply_to_message_id") replyToMessageId: Int? = null,
             @Field("reply_markup") replyMarkup: ReplyMarkup? = null
-                    ): Call<Response<Message>>
+    ): Call<Response<Message>>
 
     @POST("sendLocation") @FormUrlEncoded
     fun sendLocation(
@@ -368,7 +367,7 @@ interface TelegramBotService {
             @Field("disable_notification") disableNotification: Boolean? = null,
             @Field("reply_to_message_id") replyToMessageId: Int? = null,
             @Field("reply_markup") replyMarkup: ReplyMarkup? = null
-                    ): Call<Response<Message>>
+    ): Call<Response<Message>>
 
     @POST("sendVenue") @FormUrlEncoded
     fun sendVenue(
@@ -381,7 +380,7 @@ interface TelegramBotService {
             @Field("disable_notification") disableNotification: Boolean? = null,
             @Field("reply_to_message_id") replyToMessageId: Int? = null,
             @Field("reply_markup") replyMarkup: ReplyMarkup? = null
-                 ): Call<Response<Message>>
+    ): Call<Response<Message>>
 
     @POST("sendVenue") @FormUrlEncoded
     fun sendVenue(
@@ -394,7 +393,7 @@ interface TelegramBotService {
             @Field("disable_notification") disableNotification: Boolean? = null,
             @Field("reply_to_message_id") replyToMessageId: Int? = null,
             @Field("reply_markup") replyMarkup: ReplyMarkup? = null
-                 ): Call<Response<Message>>
+    ): Call<Response<Message>>
 
     @POST("sendContact") @FormUrlEncoded
     fun sendContact(
@@ -405,7 +404,7 @@ interface TelegramBotService {
             @Field("disable_notification") disableNotification: Boolean? = null,
             @Field("reply_to_message_id") replyToMessageId: Int? = null,
             @Field("reply_markup") replyMarkup: ReplyMarkup? = null
-                   ): Call<Response<Message>>
+    ): Call<Response<Message>>
 
     @POST("sendContact") @FormUrlEncoded
     fun sendContact(
@@ -416,75 +415,75 @@ interface TelegramBotService {
             @Field("disable_notification") disableNotification: Boolean? = null,
             @Field("reply_to_message_id") replyToMessageId: Int? = null,
             @Field("reply_markup") replyMarkup: ReplyMarkup? = null
-                   ): Call<Response<Message>>
+    ): Call<Response<Message>>
 
     @POST("sendChatAction") @FormUrlEncoded
     fun sendChatAction(
             @Field("chat_id") chatId: String,
             @Field("action") action: ChatAction
-                      ): Call<Response<Boolean>>
+    ): Call<Response<Boolean>>
 
     @POST("sendChatAction") @FormUrlEncoded
     fun sendChatAction(
             @Field("chat_id") chatId: Long,
             @Field("action") action: ChatAction
-                      ): Call<Response<Boolean>>
+    ): Call<Response<Boolean>>
 
     @GET("getUserProfilePhotos")
     fun getUserProfilePhotos(
             @Query("user_id") userId: Long,
             @Query("offset") offset: Int? = null,
             @Query("limit") limit: Int? = null
-                            ): Call<Response<UserProfilePhotos>>
+    ): Call<Response<UserProfilePhotos>>
 
     @GET("getFile")
     fun getUserProfilePhotos(
             @Query("file_id") fileId: String
-                            ): Call<Response<File>>
+    ): Call<Response<File>>
 
     @POST("kickChatMember") @FormUrlEncoded
     fun kickChatMember(
             @Field("chat_id") chatId: String,
             @Field("user_id") userId: Long
-                      ): Call<Response<Boolean>>
+    ): Call<Response<Boolean>>
 
     @POST("leaveChat") @FormUrlEncoded
     fun leaveChat(
             @Field("chat_id") chatId: String
-                 ): Call<Response<Boolean>>
+    ): Call<Response<Boolean>>
 
     @POST("unbanChatMember") @FormUrlEncoded
     fun unbanChatMember(
             @Field("chat_id") chatId: String,
             @Field("user_id") userId: Long
-                       ): Call<Response<Boolean>>
+    ): Call<Response<Boolean>>
 
     @GET("getChat")
     fun getChat(
             @Query("chat_id") chatId: String
-               ): Call<Response<Chat>>
+    ): Call<Response<Chat>>
 
     @GET("getChatAdministrators")
     fun getChatAdministrators(
             @Query("chat_id") chatId: String
-                             ): Call<Response<List<ChatMember>>>
+    ): Call<Response<List<ChatMember>>>
 
     @GET("getChatMembersCount")
     fun getChatMembersCount(
             @Query("chat_id") chatId: String
-                           ): Call<Response<Int>>
+    ): Call<Response<Int>>
 
     @GET("getChatMember")
     fun getChatMember(
             @Query("chat_id") chatId: String
-                     ): Call<Response<ChatMember>>
+    ): Call<Response<ChatMember>>
 
     @POST("answerCallbackQuery") @FormUrlEncoded
     fun answerCallbackQuery(
             @Field("callback_query_id") callbackQueryId: String,
             @Field("text") text: String? = null,
             @Field("show_alert") showAlert: Boolean? = null
-                           ): Call<Response<Boolean>>
+    ): Call<Response<Boolean>>
 
     /**
      * Use this method to receive incoming updates using long polling (wiki).
@@ -505,7 +504,7 @@ interface TelegramBotService {
             @Query("offset") offset: Long? = null,
             @Query("limit") limit: Int? = null,
             @Query("timeout") timeout: Int? = null
-                  ): Call<Response<List<Update>>>
+    ): Call<Response<List<Update>>>
 
     /**
      * Use this method to specify a url and receive incoming updates via an outgoing webhook.
@@ -516,11 +515,13 @@ interface TelegramBotService {
     @POST("setWebhook") @Multipart
     fun setWebhook(
             @Part("url") url: RequestBody,
-            @Part("certificate") certificate: RequestBody
-                  ): Call<Response<Boolean>>
+            @Part("certificate") certificate: RequestBody? = null,
+            @Part("max_connections") max_connections: Int = 10,
+            @Part("allowed_updates") allowed_updates: List<String> = emptyList()
+    ): Call<Response<String>>
 
-    @POST("setWebhook")
-    fun setWebhook(@Query("url") url: String): Call<Response<String>>
+//    @POST("setWebhook")
+//    fun setWebhook(@Query("url") url: String): Call<Response<String>>
 
     @POST("deleteWebhook")
     fun deleteWebhook(): Call<Response<String>>

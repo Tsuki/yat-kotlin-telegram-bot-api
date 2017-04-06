@@ -35,6 +35,13 @@ class TelegramProperties(FILE_NAME: String = "telegram.properties") {
     private fun readProperties() = Properties().apply {
         FileInputStream(file).use { input -> load(input) }
     }
+    fun readProperties(filename:String) = Properties().apply {
+        val file: File = when {
+            File(filename).exists() -> File(filename)
+            else -> File(::TelegramProperties.javaClass.getResource("/$filename").toURI())
+        }
+        FileInputStream(file).use { input -> load(input) }
+    }
 
     override fun toString(): String {
         return MoreObjects.toStringHelper(this)

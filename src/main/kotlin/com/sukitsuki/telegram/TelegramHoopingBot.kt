@@ -80,7 +80,7 @@ class TelegramHoopingBot internal constructor(
                 response.end("{\"ok\": true}")
             }
         }.listen(8443)
-        val response = this.setWebhook(properties.hookUrl).execute()
+        val response = this.setWebhook(requestString(properties.hookUrl)).execute()
         if (!response.isSuccessful) {
             logger.error("Set web hook ${properties.hookUrl} error message: ${response.errorBody().string()}")
             exit(0)
